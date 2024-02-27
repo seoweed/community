@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class PostsDto {
-    private Member member;
     private String title;
     private String content;
 }

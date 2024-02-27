@@ -20,4 +20,12 @@ public class MemberService {
         Member member = new Member(memberDto.getUsername(), memberDto.getEmail(), memberDto.getPassword(), LocalDateTime.now());
         return memberRepository.save(member);
     }
+    // 로그인 서비스
+    public Member loginService(String email, String password) {
+        Member loginMember = memberRepository.findByEmail(email);
+        if (loginMember == null) {
+            return null;
+        }
+        return loginMember;
+    }
 }

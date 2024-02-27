@@ -1,5 +1,6 @@
 package com.weed.community.service;
 
+import com.weed.community.domain.Member;
 import com.weed.community.domain.Posts;
 import com.weed.community.dto.PostsDto;
 import com.weed.community.dto.PostsUpdateRequest;
@@ -18,8 +19,8 @@ public class PostsService {
     private final PostsRepository postsRepository;
 
     // 게시물 작성
-    public Posts createPosts(PostsDto postsDto) {
-        Posts posts = new Posts(postsDto.getMember(), postsDto.getTitle(), postsDto.getContent(), LocalDateTime.now());
+    public Posts createPosts(PostsDto postsDto, Member member) {
+        Posts posts = new Posts(null, postsDto.getTitle(), postsDto.getContent(), LocalDateTime.now());
         return postsRepository.save(posts);
     }
     // 게시물 조회
