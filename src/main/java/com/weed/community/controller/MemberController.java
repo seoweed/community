@@ -4,6 +4,8 @@ import com.weed.community.domain.Member;
 import com.weed.community.dto.LoginRequest;
 import com.weed.community.dto.MemberDto;
 import com.weed.community.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,13 +32,15 @@ public class MemberController {
         return "login";
     }
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginRequest loginRequest) {
-        Member member = memberService.loginService(loginRequest.getEmail(), loginRequest.getPassword());
+    public String login(@ModelAttribute LoginRequest loginRequest, HttpServletRequest request) {
+        Member loginMember = memberService.loginService(loginRequest.getEmail(), loginRequest.getPassword());
         // 로그인 실패시
-        if (member == null) {
+        if (loginMember == null) {
             return "login";
         }
         // 로그인 성공시
+        HttpSession session = request.getSession();
+        session.setAttribute("loginMember", loginMember);
         return "redirect:/";
     }
 }

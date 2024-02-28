@@ -24,6 +24,10 @@ public class CommentsService {
     public List<Comments> findComments() {
         return commentsRepository.findAll();
     }
+    // 글 아이디로 댓글 조회
+    public List<Comments> findCommentsByPostId(Long postId) {
+        return commentsRepository.findByPostsId(postId);
+    }
     // 댓글 수정
     public void updateComments(Long commentsId, String updateContent) {
         Comments comments = commentsRepository.findById(commentsId).orElseThrow();

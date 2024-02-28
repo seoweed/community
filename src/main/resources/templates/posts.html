@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>posts</title>
+</head>
+<body>
+<h2>posts 페이지입니다.</h2>
+<table>
+    <tr>
+        <th>title</th>
+        <th>content</th>
+    </tr>
+    <tr th:each="post : ${posts}">
+        <td><a th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}"></a></td>
+        <td th:text="${post.content}"></td>
+    </tr>
+</table>
+</body>
+</html>

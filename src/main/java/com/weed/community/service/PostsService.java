@@ -20,7 +20,7 @@ public class PostsService {
 
     // 게시물 작성
     public Posts createPosts(PostsDto postsDto, Member member) {
-        Posts posts = new Posts(null, postsDto.getTitle(), postsDto.getContent(), LocalDateTime.now());
+        Posts posts = new Posts(member, postsDto.getTitle(), postsDto.getContent(), LocalDateTime.now());
         return postsRepository.save(posts);
     }
     // 게시물 조회
