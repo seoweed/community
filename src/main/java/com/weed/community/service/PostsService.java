@@ -8,6 +8,7 @@ import com.weed.community.repository.MemberRepository;
 import com.weed.community.repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PostsService {
     private final PostsRepository postsRepository;
 
@@ -38,8 +40,8 @@ public class PostsService {
         posts.setContent(updateRequest.getContent());
         posts.setCreateDate(LocalDateTime.now());
     }
-    // 게시물 삭제
-    public void deletePosts(Long postId) {
+    // 게시물 삭제 (id)
+    public void deletePostsById(Long postId) {
         postsRepository.deleteById(postId);
     }
 }

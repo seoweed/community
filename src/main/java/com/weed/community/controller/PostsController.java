@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 
@@ -48,5 +49,22 @@ public class PostsController {
         model.addAttribute("comments", comments);
         model.addAttribute("post", posts);
         return "post";
+    }
+    /**
+     * 글 삭제시 단방향 연관관계인 댓글이 참조되어 삭제가 되지 않았음
+     * 해결 -> 글과 댓글을 양방향 매핑으로 구성하고 cascade = CascadeType.ALL 옵션 적용
+     * 글을 삭제 할 때 글에 달렸던 댓글도 모두 삭제되도록 구현
+     */
+    // 글 삭제
+    @PostMapping("/post/delete/{postId}")
+    public String deletePost(@PathVariable Long postId,
+                             @SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+        Posts posts = postsService.findPostsOne(postId).orElseThrow();
+        if (posts.getMember().getId().equals(loginMember.getId())) {
+            postsService.deletePostsById(postId);
+            return "redirect:/posts";
+        }
+        // error 추가
+        return "redirect:/posts";
     }
 }

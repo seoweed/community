@@ -8,12 +8,18 @@
 <h2>posts 페이지입니다.</h2>
 <table>
     <tr>
-        <th>title</th>
-        <th>content</th>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Delete</th>
     </tr>
-    <tr th:each="post : ${posts}">
+    <tr th:each="post, postIndex : ${posts}">
+        <td th:text="${postIndex.count}"></td>
         <td><a th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}"></a></td>
-        <td th:text="${post.content}"></td>
+        <td>
+            <form th:action="@{/post/delete/{postId}(postId=${post.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td> <!-- 삭제 버튼 -->
     </tr>
 </table>
 </body>

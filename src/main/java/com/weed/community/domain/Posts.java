@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +24,8 @@ public class Posts {
     private String title;
     private String content;
     private LocalDateTime createDate;
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
+    private List<Comments> comments;
 
     public Posts(Member member, String title, String content, LocalDateTime createDate) {
         this.member = member;
