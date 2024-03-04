@@ -10,16 +10,18 @@
     <tr>
         <th>No.</th>
         <th>Title</th>
+        <th>Writer</th>
         <th>Delete</th>
     </tr>
     <tr th:each="post, postIndex : ${posts}">
-        <td th:text="${postIndex.count}"></td>
-        <td><a th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}"></a></td>
+        <td th:text="${postIndex.count}">Number</td>
+        <td><a th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}">Link</a></td>
+        <td th:text="${post.member.username}">Writer</td>
         <td>
             <form th:action="@{/post/delete/{postId}(postId=${post.id})}" method="post">
                 <button type="submit">Delete</button>
             </form>
-        </td> <!-- 삭제 버튼 -->
+        </td>
     </tr>
 </table>
 </body>

@@ -6,12 +6,14 @@ import com.weed.community.domain.Posts;
 import com.weed.community.repository.CommentsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentsService {
     private final CommentsRepository commentsRepository;
 
