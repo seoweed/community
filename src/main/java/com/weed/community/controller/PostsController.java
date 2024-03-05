@@ -25,7 +25,11 @@ public class PostsController {
 
     // 글 작성
     @GetMapping("/write")
-    public String postRegister() {
+    public String postRegister(@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+        if (loginMember == null) {
+            //TODO 로그인 필요 메세지 추가
+            return "home";
+        }
         return "write";
     }
     @PostMapping("/write")
@@ -64,7 +68,7 @@ public class PostsController {
             postsService.deletePostsById(postId);
             return "redirect:/posts";
         }
-        // error 추가
+        //TODO error 추가
         return "redirect:/posts";
     }
 }
