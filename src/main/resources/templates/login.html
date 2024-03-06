@@ -32,29 +32,29 @@
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
+    <link href="cover.css" rel="stylesheet">
 </head>
 <body class="text-center">
+    <main class="form-signin">
+        <form name="login" action="/login" method="post">
+            <img class="mb-4" src="https://cdn.pixabay.com/photo/2015/07/06/15/12/w-833386_1280.png" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal" style="color:#ffffff;">Please sign in</h1>
 
-<main class="form-signin">
-    <form name="login" action="/login" method="post">
-        <img class="mb-4" src="https://cdn.pixabay.com/photo/2015/07/06/15/12/w-833386_1280.png" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal" style="color:#ffffff;">Please sign in</h1>
+            <div class="form-floating">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
 
-        <div class="form-floating">
-            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-        </div>
-
-        <div class="checkbox mb-3">
-            <label style="color:#ffffff;"><input type="checkbox" value="remember-me"> Remember me</label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2024-weed</p>
-    </form>
-</main>
+            <div class="checkbox mb-3">
+                <label style="color:#ffffff;"><input type="checkbox" value="remember-me"> Remember me</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2024-weed</p>
+        </form>
+    </main>
 </body>
 </html>

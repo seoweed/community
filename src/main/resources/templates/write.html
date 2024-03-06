@@ -1,15 +1,48 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>write</title>-->
+<!--    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>write</h1>-->
+<!--    <form name="write" action="/write" method="post">-->
+<!--      <input id="title" name="title" type="text" placeholder="title">-->
+<!--      <input id="content" name="content" type="text" placeholder="content">-->
+<!--      <button type="submit">submit</button>-->
+<!--    </form>-->
+<!--    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>write</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Example</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-dark.css">
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-<h1>write</h1>
-<form name="write" action="/write" method="post">
-  <input id="title" name="title" type="text" placeholder="title">
-  <input id="content" name="content" type="text" placeholder="content">
-  <button type="submit">submit</button>
-</form>
+<div id="editor"></div>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editor = new toastui.Editor({
+                el: document.querySelector("#editor"),
+                initialEditType: "WYSIWYG",
+                previewStyle: "vertical",
+                height: "500px",
+            });
+        });
+    </script>
 </body>
 </html>

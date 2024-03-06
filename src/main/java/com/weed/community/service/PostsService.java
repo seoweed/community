@@ -4,7 +4,6 @@ import com.weed.community.domain.Member;
 import com.weed.community.domain.Posts;
 import com.weed.community.dto.PostsDto;
 import com.weed.community.dto.PostsUpdateRequest;
-import com.weed.community.repository.MemberRepository;
 import com.weed.community.repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
