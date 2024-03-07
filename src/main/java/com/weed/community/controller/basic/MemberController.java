@@ -1,4 +1,4 @@
-package com.weed.community.controller;
+package com.weed.community.controller.basic;
 
 import com.weed.community.domain.Member;
 import com.weed.community.dto.LoginRequest;

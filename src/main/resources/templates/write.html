@@ -15,34 +15,105 @@
 <!--    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>-->
 <!--</body>-->
 <!--</html>-->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Mode Example</title>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css">
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-dark.css">
+    <title>글쓰기 페이지</title>
+    <!-- 버튼 영역 CSS -->
     <style>
-        body {
-            background-color: #333;
-            color: #fff;
-        }
+        #btnDiv { text-align: center; margin-top: 20px; }
+        .btns { display: inline-block; padding: 0 10px; height: 28px; line-height: 26px; text-align: center; vertical-align: middle; border-radius: 3px; border: 1px solid transparent; font-weight: 500; }
+        .btns.save { background: #139dc8; color: #fff; cursor: pointer; }
+        .btns.back { background: #fff; border: 1px solid #199bc4; color: #199bc4; }
     </style>
+
+    <!-- TUI 에디터 CSS CDN -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 <body>
-<div id="editor"></div>
+    <h2 style="text-align: center;">TOAST UI Editor 글쓰기 페이지</h2>
 
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const editor = new toastui.Editor({
-                el: document.querySelector("#editor"),
-                initialEditType: "WYSIWYG",
-                previewStyle: "vertical",
-                height: "500px",
-            });
+    <input type="text" id="titleInput" placeholder="제목을 입력하세요." style="width: 100%; margin-bottom: 10px; padding: 5px;">
+
+    <!-- 에디터를 적용할 요소 (컨테이너) -->
+    <div id="editor"></div>
+
+    <div id="btnDiv">
+        <button type="button" class="btns save" onclick="savePost();">저장하기</button>
+        <a href="/posts" class="btns back">뒤로 가기</a>
+    </div>
+
+    <!-- TUI 에디터 JS CDN -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+        const editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            height: '500px',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            placeholder: '내용을 입력해 주세요.',
+            hooks: {
+                async addImageBlobHook(blob, callback) { // 이미지 업로드 로직 커스텀
+                    try {
+                        const formData = new FormData();
+                        formData.append('image', blob);
+
+                        const response = await fetch('/tui/image-upload', {
+                            method : 'POST',
+                            body : formData,
+                        });
+
+                        const filename = await response.text();
+                        console.log('서버에 저장된 파일명 : ', filename);
+
+                        const imageUrl = `/tui/image-print?filename=${filename}`;
+                        callback(imageUrl, 'image alt attribute');
+
+                    } catch (error) {
+                        console.error('업로드 실패 : ', error);
+                    }
+                }
+            }
         });
+
+        async function savePost() {
+            const titleInput = document.getElementById('titleInput');
+            const title = titleInput.value.trim();
+
+            if (title.length < 1) {
+                alert('제목을 입력해 주세요.');
+                return;
+            }
+            if (editor.getMarkdown().length < 1) {
+                alert('내용을 입력해 주세요.');
+                throw new Error('editor content is required!');
+            }
+
+            // 2. url, parameter 세팅
+            const url = '/write-tui';
+            const params = {
+                title: title,
+                content: editor.getHTML()
+            };
+
+            // 3. API 호출
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(params),
+                });
+
+                alert('게시글이 저장되었습니다.');
+
+            } catch (error) {
+                console.error('저장 실패 : ', error)
+            }
+        }
     </script>
 </body>
 </html>

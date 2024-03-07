@@ -22,6 +22,7 @@ public class Posts {
     @JoinColumn(name = "member_id")
     private Member member;
     private String title;
+    @Column(length = 50000)
     private String content;
     private LocalDateTime createDate;
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)

@@ -1,10 +1,12 @@
-package com.weed.community.controller;
+package com.weed.community.controller.basic;
 
 import com.weed.community.domain.Comments;
 import com.weed.community.domain.Member;
 import com.weed.community.domain.Posts;
+import com.weed.community.dto.PostRequest;
 import com.weed.community.dto.PostsDto;
 import com.weed.community.service.CommentsService;
+import com.weed.community.service.PostService;
 import com.weed.community.service.PostsService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class PostsController {
     private final PostsService postsService;
     private final CommentsService commentsService;
+    private final PostService postService;
 
     // 글 작성
     @GetMapping("/write")
@@ -34,6 +37,15 @@ public class PostsController {
         Member loginMember = (Member) request.getSession(false).getAttribute("loginMember");
         postsService.createPosts(postsDto, loginMember);
         return "redirect:/";
+    }
+    // 글 작성 (tui-editor 사용)
+    @PostMapping("/write-tui")
+    public String writeTui(
+            @RequestBody PostRequest postRequest,
+            @SessionAttribute(name = "loginMember", required = false) Member loginMember
+    ) {
+        postService.savePost(postRequest, loginMember);
+        return "redirect:/posts";
     }
     // 글 목록 조회
     @GetMapping("/posts")

@@ -1,26 +1,51 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>post</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>post 페이지입니다.</h2>-->
+<!--<ul>-->
+<!--    <li><span th:text="${post.title}"></span></li>-->
+<!--</ul>-->
+<!--<ul>-->
+<!--    <li><span th:text="${post.content}"></span></li>-->
+<!--</ul>-->
+<!--<h3>댓글</h3>-->
+<!--<table>-->
+<!--    <tr th:each="comment : ${comments}">-->
+<!--        <td th:text="${comment.content}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<form id="content" th:action="@{'/comment/' + ${post.id}}" method="post">-->
+<!--    <input type="text" name="content">-->
+<!--    <button type="submit">submit</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Example</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
 </head>
 <body>
-<h2>post 페이지입니다.</h2>
-<ul>
-    <li><span th:text="${post.title}"></span></li>
-</ul>
-<ul>
-    <li><span th:text="${post.content}"></span></li>
-</ul>
-<h3>댓글</h3>
-<table>
-    <tr th:each="comment : ${comments}">
-        <td th:text="${comment.content}"></td>
-    </tr>
-</table>
-<form id="content" th:action="@{'/comment/' + ${post.id}}" method="post">
-    <input type="text" name="content">
-    <button type="submit">submit</button>
-</form>
+<div id="viewer">
+    <strong>The example code can be slower than your environment because the code is transpiled by
+        babel-standalone in runtime.</strong>
+</div>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
+<script>
+        const viewer = new toastui.Editor({
+        el: document.querySelector('#viewer'),
+        viewer : true,
+        initialValue : "Hello toast ui viewer~!"
+      });
+    </script>
 </body>
 </html>
